@@ -9,142 +9,138 @@
 </head>
 <body>
   <!-- Navigation -->
-  <header>
-    <div class="navigation">
+  <header class="flex-row">
+    <nav class="flex-row">
       <div id="menu">
-        <button class="menu"></button>
-        <div class="hidden">
+        <button class="menu">M<</button>
+        <div class="hidden" id="menu">
         </div>
       </div>
-      <div class="type">
-      </div>
-    </div>
+      <h1 class="type">Standard</h1>
+    </nav>
     <div class="history">
+      <button class="menu">Hv</button>
     </div>
   </header>
   <!-- Display -->
   <div id="display">
-    <div class="display">
+    <div class="display flex-row">
+      <h1>0</h1>
     </div>
   </div>
   <!-- Keyboard -->
-  <div id="keyboard">
-    <table>
-      <!-- Memory -->
-      <tr id="memory">
-        <td id="memory_clear">
-          <button class="memory"></button>
-        </td>
-        <td id="memory_recall">
-          <button class="memory"></button>
-        </td>
-        <td id="memory_add">
-          <button class="memory"></button>
-        </td>
-        <td id="memory_subtract">
-          <button class="memory"></button>
-        </td>
-        <td id="memory_store">
-          <button class="memory"></button>
-        </td>
-        <td id="memory_history">
-          <button class="memory"></button>
-          <button class="memory_history"></button>
-          <div class="hidden">
-          </div>  
-        </td>
-      </tr>
-      <!-- Row One -->
-      <tr>
-        <td id="percent">
-          <button class="function"></button>
-        </td>
-        <td id="square_root">
-          <button class="function"></button>
-        </td>
-        <td id="x_squared">
-          <button class="function"></button>
-        </td>
-        <td id="reciprocal">
-          <button class="function"></button>
-        </td>
-      </tr>
-      <!-- Row Two -->
-      <tr>
-        <td id="clear_entry">
-          <button class="function"></button>
-        </td>
-        <td id="clear_all">
-          <button class="function"></button>
-        </td>
-        <td id="clear_character">
-          <button class="function"></button>
-        </td>
-        <td id="divide">
-          <button class="function"></button>
-        </td>
-      </tr>
-      <!-- Row Three -->
-      <tr>
-        <td id="number_7">
-          <button class="number"></button>
-        </td>
-        <td id="number_8">
-          <button class="number"></button>
-        </td>
-        <td id="number_9">
-          <button class="number"></button>
-        </td>
-        <td id="multiply">
-          <button class="function"></button>
-        </td>
-      </tr>
-      <!-- Row Four -->
-      <tr>
-        <td id="number_4">
-          <button class="number"></button>
-        </td>
-        <td id="number_5">
-          <button class="number"></button>
-        </td>
-        <td id="number_6">
-          <button class="number"></button>
-        </td>
-        <td id="subtract">
-          <button class="function"></button>
-        </td>
-      </tr>
-      <!-- Row Five -->
-      <tr>
-        <td id="number_1">
-          <button class="number"></button>
-        </td>
-        <td id="number_2">
-          <button class="number"></button>
-        </td>
-        <td id="number_3">
-          <button class="number"></button>
-        </td>
-        <td id="add">
-          <button class="function"></button>
-        </td>
-      </tr>
-      <!-- Final Row -->
-      <tr>
-        <td id="negate">
-          <button class="function"></button>
-        </td>
-        <td id="number_0">
-          <button class="number"></button>
-        </td>
-        <td id="decimal">
-          <button class="function"></button>
-        </td>
-        <td id="evaluate">
-          <button class="function"></button>
-        </td>
-      </tr>
-    </table>
+  <div id="keyboard flex-column">
+    <!-- Memory -->
+    <div class="row flex-row" id="memory">
+      <div class="button">
+        <button>MC</button>
+      </div>
+      <div class="button">
+        <button>MR</button>
+      </div>
+      <div class="button">
+        <button>M+</button>
+      </div>
+      <div class="button">
+        <button>M-</button>
+      </div>
+      <div class="button">
+        <button>MS</button>
+      </div>
+      <div class="button">
+        <button>Mv</button>
+      </div>
+    </div>
+    <!-- Row 1 -->
+    <div class="row flex-row">
+      <div class="button">
+        <button>%</button>
+      </div>
+      <div class="button">
+        <button>-/</button>
+      </div>
+      <div class="button">
+        <button>x^2</button>
+      </div>
+      <div class="button">
+        <button>1/x</button>
+      </div>
+    </div>
+    <!-- Row 2 -->
+    <div class="row flex-row">
+      <div class="button">
+        <button>CE</button>
+      </div>
+      <div class="button">
+        <button>C</button>
+      </div>
+      <div class="button">
+        <button><[x]</button>
+      </div>
+      <div class="button">
+        <button>*/.</button>
+      </div>
+    </div>
+    <!-- Row 3 -->
+    <div class="row flex-row">
+      <div class="button">
+        <button class="number">7</button>
+      </div>
+      <div class="button">
+        <button class="number">8</button>
+      </div>
+      <div class="button">
+        <button class="number">9</button>
+      </div>
+      <div class="button">
+        <button>X</button>
+      </div>
+    </div>
+    <!-- Row 4 -->
+    <div class="row flex-row">
+      <div class="button">
+        <button class="number">4</button>
+      </div>
+      <div class="button">
+        <button class="number">5</button>
+      </div>
+      <div class="button">
+        <button class="number">6</button>
+      </div>
+      <div class="button">
+        <button class="big">-</button>
+      </div>
+    </div>
+    <!-- Row 5 -->
+    <div class="row flex-row">
+      <div class="button">
+        <button class="number">1</button>
+      </div>
+      <div class="button">
+        <button class="number">2</button>
+      </div>
+      <div class="button">
+        <button class="number">3</button>
+      </div>
+      <div class="button">
+        <button class="big">+</button>
+      </div>
+    </div>
+    <!-- Row 6 -->
+    <div class="row flex-row">
+      <div class="button">
+        <button>+/-</button>
+      </div>
+      <div class="button">
+        <button class="number">0</button>
+      </div>
+      <div class="button">
+        <button class="big">.</button>
+      </div>
+      <div class="button">
+        <button class="big">=</button>
+      </div>
+    </div>
   </div>
   <!-- Scripts -->
   <script src="./resources/js/main.js"></script>
