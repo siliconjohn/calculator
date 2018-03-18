@@ -47,18 +47,16 @@ var toggleMemory = function(boolean) {
 };
 
 // EVENT LISTENERS
-  // Memory
+  // Memory ---> Is Working!! : Memory-History still needs work!
 document.getElementById('memory-clear').addEventListener('click', function(){
 	memory.history = [];
 	memory.firstTerm = 0;
 	memory.secondTerm = 0
 	toggleMemory(true);
 	clearDisplay();
-	console.log(memory);
 });
 document.getElementById('memory-recall').addEventListener('click', function(){
   document.getElementById('display').innerHTML = memory.firstTerm;
-	console.log(memory);
 });
 document.getElementById('memory-add').addEventListener('click', function(){
   memory.secondTerm = document.getElementById('display').innerHTML;
@@ -69,7 +67,6 @@ document.getElementById('memory-add').addEventListener('click', function(){
 	memoryHistory(memory.firstTerm, '+', memory.secondTerm, e);
 	memory.firstTerm = e;
 	clearDisplay();
-	console.log(memory);
 });
 document.getElementById('memory-subtract').addEventListener('click', function(){
 	memory.secondTerm = document.getElementById('display').innerHTML;
@@ -80,15 +77,12 @@ document.getElementById('memory-subtract').addEventListener('click', function(){
 	memoryHistory(memory.firstTerm, '-', memory.secondTerm, e);
 	memory.firstTerm = e;
 	clearDisplay();
-	console.log(memory);
 });
 document.getElementById('memory-store').addEventListener('click', function(){
 	memory.firstTerm = document.getElementById('display').innerHTML;
 	memory.history.push(memory.firstTerm);
   toggleMemory(false);
 	clearDisplay();
-	console.log(memory);
-
 });
 document.getElementById('memory-history').addEventListener('click', function(){
 	console.log("Function under construction! Thank you for your Patience :-)!");
