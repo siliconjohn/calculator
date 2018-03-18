@@ -1,7 +1,7 @@
 // Objects
   // Main ['data'(object)]
 var data = {
-	history: []
+	history: [],
 	equation: '',
 	firstTerm: 0,
 	secondTerm: 0,
