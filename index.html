@@ -12,7 +12,7 @@
   <header class="flex-row">
     <nav class="flex-row">
       <div id="menu">
-        <button class="menu">M<</button>
+        <button class="menu">&#9776;</button>
         <div class="hidden" id="menu">
         </div>
       </div>
@@ -23,122 +23,118 @@
     </div>
   </header>
   <!-- Display -->
-  <div id="display">
-    <div class="display flex-row">
-      <h1>0</h1>
-    </div>
-  </div>
+  <div class="flex-row" id="display"></div>
   <!-- Keyboard -->
-  <div id="keyboard flex-column">
+  <div id="keyboard" class="flex-column">
     <!-- Memory -->
     <div class="row flex-row" id="memory">
       <div class="button">
-        <button>MC</button>
+        <button class="not-in-use" id="memory-clear">MC</button>
       </div>
       <div class="button">
-        <button>MR</button>
+        <button class="not-in-use" id="memory-recall" >MR</button>
       </div>
       <div class="button">
-        <button>M+</button>
+        <button id="memory-add">M+</button>
       </div>
       <div class="button">
-        <button>M-</button>
+        <button id="memory-subtract">M-</button>
       </div>
       <div class="button">
-        <button>MS</button>
+        <button id="memory-store">MS</button>
       </div>
       <div class="button">
-        <button>Mv</button>
+        <button class="not-in-use" id="memory-history">Mv</button>
       </div>
     </div>
     <!-- Row 1 -->
     <div class="row flex-row">
       <div class="button">
-        <button>%</button>
+        <button id="percent">%</button>
       </div>
       <div class="button">
-        <button>-/</button>
+        <button id="squareroot">&radic;</button>
       </div>
       <div class="button">
-        <button>x^2</button>
+        <button id="power">x&sup2;</button>
       </div>
       <div class="button">
-        <button>1/x</button>
+        <button id="reciprocal">1/x</button>
       </div>
     </div>
     <!-- Row 2 -->
     <div class="row flex-row">
       <div class="button">
-        <button>CE</button>
+        <button id="clear-entry">CE</button>
       </div>
       <div class="button">
-        <button>C</button>
+        <button id="clear-all">C</button>
       </div>
       <div class="button">
-        <button><[x]</button>
+        <button id="delete-last">&#9746;</button>
       </div>
       <div class="button">
-        <button>*/.</button>
+        <button id="divide">&divide;</button>
       </div>
     </div>
     <!-- Row 3 -->
     <div class="row flex-row">
       <div class="button">
-        <button class="number">7</button>
+        <button class="number" id="btn-7">7</button>
       </div>
       <div class="button">
-        <button class="number">8</button>
+        <button class="number" id="btn-8">8</button>
       </div>
       <div class="button">
-        <button class="number">9</button>
+        <button class="number" id="btn-9">9</button>
       </div>
       <div class="button">
-        <button>X</button>
+        <button id="multiply">&times;</button>
       </div>
     </div>
     <!-- Row 4 -->
     <div class="row flex-row">
       <div class="button">
-        <button class="number">4</button>
+        <button class="number" id="btn-4">4</button>
       </div>
       <div class="button">
-        <button class="number">5</button>
+        <button class="number" id="btn-5">5</button>
       </div>
       <div class="button">
-        <button class="number">6</button>
+        <button class="number" id="btn-6">6</button>
       </div>
       <div class="button">
-        <button class="big">-</button>
+        <button id="minus">&minus;</button>
       </div>
     </div>
     <!-- Row 5 -->
     <div class="row flex-row">
       <div class="button">
-        <button class="number">1</button>
+        <button class="number" id="btn-1">1</button>
       </div>
       <div class="button">
-        <button class="number">2</button>
+        <button class="number" id="btn-2">2</button>
       </div>
       <div class="button">
-        <button class="number">3</button>
+        <button class="number" id="btn-3">3</button>
       </div>
       <div class="button">
-        <button class="big">+</button>
+        <button id="add">&plus;</button>
       </div>
     </div>
     <!-- Row 6 -->
     <div class="row flex-row">
       <div class="button">
-        <button>+/-</button>
+        <button id="plus-minus">&plusmn;</button>
       </div>
       <div class="button">
-        <button class="number">0</button>
+        <button class="number" id="btn-0">0</button>
       </div>
       <div class="button">
-        <button class="big">.</button>
+        <button id="decimal">.</button>
       </div>
       <div class="button">
-        <button class="big">=</button>
+        <button id="evaluate">=</button>
       </div>
     </div>
   </div>
