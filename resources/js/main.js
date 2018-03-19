@@ -92,7 +92,7 @@ document.getElementById('memory-add').addEventListener('click', function(){
 		memory.secondTerm = document.getElementById('display').innerHTML;
 		var x = parseInt(memory.firstTerm);
 		var y = parseInt(memory.secondTerm);
-		var e = eval("x + y").toString();
+		var e = eval("x + y").toFixed(9).toString();
 		memoryHistory(memory.firstTerm, '+', memory.secondTerm, e);
 		memory.firstTerm = e;
 	}
@@ -104,7 +104,7 @@ document.getElementById('memory-subtract').addEventListener('click', function(){
 	memory.secondTerm = document.getElementById('display').innerHTML;
 	var x = parseInt(memory.firstTerm);
 	var y = parseInt(memory.secondTerm);
-	var e = eval("x - y").toString();
+	var e = eval("x - y").toFixed(9).toString();
 	memoryHistory(memory.firstTerm, '-', memory.secondTerm, e);
 	memory.firstTerm = e;
 	toggleMemory(false);
@@ -239,7 +239,7 @@ document.getElementById('evaluate').addEventListener('click', function(){
 	data.currentOperator = '=';
 	data.equation += `${data.firstTerm} `;
 	data.history.push(`${data.firstTerm} ${data.currentOperator} `);
-	var e = eval(data.equation)
+	var e = parseFloat(eval(data.equation).toFixed(9)).toString();
 	clearDisplay();
 	displayValue(e);
 	data.equation = '';
