@@ -74,8 +74,8 @@ var toggleMemory = function(boolean) {
 	};
 };
 
-// EVENT LISTENERS
-  // Memory ---> Is Working!! : Memory-History still needs work!
+// EVENT LISTENERS (24/30) Buttons Working!!
+  // Memory ---> Buttons Working! : Memory-History still needs work!
 document.getElementById('memory-clear').addEventListener('click', function(){
   clearMemory();
 	clearDisplay();
@@ -138,7 +138,7 @@ document.getElementById('reciprocal').addEventListener('click', function(){
   displayValue(this.innerHTML);
 });
 
-  // Row 2 ---> Clear Functions Working! : Operators Still need work!
+  // Row 2 ---> Buttons Working!
 document.getElementById('clear-entry').addEventListener('click', function(){
   clearDisplay();
 });
@@ -155,84 +155,159 @@ document.getElementById('delete-last').addEventListener('click', function(){
 	displayValue(entry.slice(0, -1));
 });
 document.getElementById('divide').addEventListener('click', function(){
-  data.firstTerm = document.getElementById('display').innerHTML;
-	data.currentOperator = '/';
-	data.equation += `${data.firstTerm} ${data.currentOperator} `;
-	data.history.push(`${data.firstTerm} ${data.currentOperator} `);
-	clearDisplay();
-	console.log(data);
-	displayValueSecondary(data.equation);
+  var val = document.getElementById('display').innerHTML;
+	if (val !== ''){
+		data.firstTerm = document.getElementById('display').innerHTML;
+		data.currentOperator = '/';
+		data.equation += `${data.firstTerm} ${data.currentOperator} `;
+		data.history.push(`${data.firstTerm} ${data.currentOperator} `);
+		clearDisplay();
+		console.log(data);
+		displayValueSecondary(data.equation);
+	};
 });
 
-  // Row 3 ---> Number Buttons Working! : Operators Still need work!
+  // Row 3 ---> Buttons Working!
 document.getElementById('btn-7').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	if (data.currentOperator === '=') {
+		clearDisplay();
+		data.currentOperator = '';
+		displayValue(this.innerHTML);
+	} else {
+		displayValue(this.innerHTML);
+	};
 });
 document.getElementById('btn-8').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	if (data.currentOperator === '=') {
+		clearDisplay();
+		data.currentOperator = '';
+		displayValue(this.innerHTML);
+	} else {
+		displayValue(this.innerHTML);
+	};
 });
 document.getElementById('btn-9').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	if (data.currentOperator === '=') {
+		clearDisplay();
+		data.currentOperator = '';
+		displayValue(this.innerHTML);
+	} else {
+		displayValue(this.innerHTML);
+	};
 });
 document.getElementById('multiply').addEventListener('click', function(){
-	data.firstTerm = document.getElementById('display').innerHTML;
-	data.currentOperator = '*';
-	data.equation += `${data.firstTerm} ${data.currentOperator} `;
-	data.history.push(`${data.firstTerm} ${data.currentOperator} `);
-	clearDisplay();
-	console.log(data);
-	displayValueSecondary(data.equation);
+	var val = document.getElementById('display').innerHTML;
+	if (val !== ''){
+		data.firstTerm = document.getElementById('display').innerHTML;
+		data.currentOperator = '*';
+		data.equation += `${data.firstTerm} ${data.currentOperator} `;
+		data.history.push(`${data.firstTerm} ${data.currentOperator} `);
+		clearDisplay();
+		console.log(data);
+		displayValueSecondary(data.equation);
+	};
 });
 
-  // Row 4 ---> Number Buttons Working! : Operators Still need work!
+  // Row 4 ---> Buttons Working!
 document.getElementById('btn-4').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	if (data.currentOperator === '=') {
+		clearDisplay();
+		data.currentOperator = '';
+		displayValue(this.innerHTML);
+	} else {
+		displayValue(this.innerHTML);
+	};
 });
 document.getElementById('btn-5').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	if (data.currentOperator === '=') {
+		clearDisplay();
+		data.currentOperator = '';
+		displayValue(this.innerHTML);
+	} else {
+		displayValue(this.innerHTML);
+	};
 });
 document.getElementById('btn-6').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	if (data.currentOperator === '=') {
+		clearDisplay();
+		data.currentOperator = '';
+		displayValue(this.innerHTML);
+	} else {
+		displayValue(this.innerHTML);
+	};
 });
 document.getElementById('minus').addEventListener('click', function(){
-	data.firstTerm = document.getElementById('display').innerHTML;
-	data.currentOperator = '-';
-	data.equation += `${data.firstTerm} ${data.currentOperator} `;
-	data.history.push(`${data.firstTerm} ${data.currentOperator} `);
-	clearDisplay();
-	console.log(data);
-	displayValueSecondary(data.equation);
+	var val = document.getElementById('display').innerHTML;
+	if (val !== ''){
+		data.firstTerm = document.getElementById('display').innerHTML;
+		data.currentOperator = '-';
+		data.equation += `${data.firstTerm} ${data.currentOperator} `;
+		data.history.push(`${data.firstTerm} ${data.currentOperator} `);
+		clearDisplay();
+		console.log(data);
+		displayValueSecondary(data.equation);
+	};
 });
 
-  // Row 5 ---> Number Buttons Working! : Operators Still need work!
+  // Row 5 ---> Buttons Working!
 document.getElementById('btn-1').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	if (data.currentOperator === '=') {
+		clearDisplay();
+		data.currentOperator = '';
+		displayValue(this.innerHTML);
+	} else {
+		displayValue(this.innerHTML);
+	};
 });
 document.getElementById('btn-2').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+  if (data.currentOperator === '=') {
+		clearDisplay();
+		data.currentOperator = '';
+		displayValue(this.innerHTML);
+	} else {
+		displayValue(this.innerHTML);
+	};
 });
 document.getElementById('btn-3').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+  if (data.currentOperator === '=') {
+			clearDisplay();
+			data.currentOperator = 0;
+			displayValue(this.innerHTML);
+	} else {
+			displayValue(this.innerHTML);
+  };
 });
 document.getElementById('add').addEventListener('click', function(){
-	data.firstTerm = document.getElementById('display').innerHTML;
-	data.currentOperator = '+';
-	data.equation += `${data.firstTerm} ${data.currentOperator} `;
-	data.history.push(`${data.firstTerm} ${data.currentOperator} `);
-	clearDisplay();
-	console.log(data);
-	displayValueSecondary(data.equation);
+	var val = document.getElementById('display').innerHTML;
+	if (val !== ''){
+		data.firstTerm = document.getElementById('display').innerHTML;
+		data.currentOperator = '+';
+		data.equation += `${data.firstTerm} ${data.currentOperator} `;
+		data.history.push(`${data.firstTerm} ${data.currentOperator} `);
+		clearDisplay();
+		console.log(data);
+		displayValueSecondary(data.equation);
+	};
 });
 
-  // Row 6
+  // Row 6 ---> Most Buttons Working! : Plus Minus needs work!
 document.getElementById('plus-minus').addEventListener('click', function(){
   displayValue(this.innerHTML);
 });
 document.getElementById('btn-0').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	if (data.currentOperator === '=') {
+		clearDisplay();
+		data.currentOperator = 0;
+		displayValue(this.innerHTML);
+	} else {
+		displayValue(this.innerHTML);
+	};
 });
 document.getElementById('decimal').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	var val = document.getElementById('display').innerHTML;
+	if (!val.includes('.')) {
+		displayValue(this.innerHTML);
+	};
 });
 document.getElementById('evaluate').addEventListener('click', function(){
 	data.firstTerm = document.getElementById('display').innerHTML;
