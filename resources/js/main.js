@@ -6,7 +6,6 @@ var data = {
 	firstTerm: 0,
 	secondTerm: 0,
 	currentOperator: '',
-	decimalAdded: false
 };
   // ['memory'(object)]
 var memory = {
@@ -21,6 +20,9 @@ var memory = {
   // General
 var clearDisplay = function() {
 	document.getElementById('display').innerHTML = '';
+}
+
+var clearSecondaryDisplay = function() {
 	document.getElementById('secondary-display').innerHTML = '';
 }
 
@@ -28,20 +30,12 @@ var clearEquation = function() {
 	data.equation = '';
 }
 
-var clearMemory = function() {
-	memory.history = [];
-	memory.firstTerm = 0;
-	memory.secondTerm = 0;
-	toggleMemory(true);
-}
-
 var clearData = function() {
 	data.history = [];
-	data.equation = [];
+	data.equation = '';
 	data.firstTerm = 0;
 	data.secondTerm = 0;
 	data.currentOperator = '';
-	data.decimalAdded= false;
 }
 
 var displayValue = function(val) {
@@ -53,13 +47,22 @@ var displayValueSecondary = function(val) {
 	document.getElementById('secondary-display').innerHTML += val;
 };
 
+var dataHistory = function() {
+
+};
+
   // Memory Specific
+var clearMemory = function() {
+	memory.history = [];
+	memory.firstTerm = 0;
+	memory.secondTerm = 0;
+	toggleMemory(true);
+}
+
 var memoryHistory = function(x, operator, y, e) {
 	var equationString = `${x} ${operator} ${y} = ${e}`;
 	memory.history.push(equationString);
 }
-
-var dataHistory = function() {};
 
 var toggleMemory = function(boolean) {
 	memory.notInUse = boolean;
@@ -74,7 +77,7 @@ var toggleMemory = function(boolean) {
 	};
 };
 
-// EVENT LISTENERS (24/30) Buttons Working!!
+// EVENT LISTENERS (27/32) Buttons Working!!
   // Memory ---> Buttons Working! : Memory-History still needs work!
 document.getElementById('memory-clear').addEventListener('click', function(){
   clearMemory();
@@ -123,19 +126,81 @@ document.getElementById('memory-history').addEventListener('click', function(){
 	console.log("Function under construction! Thank you for your Patience :-)!");
 });
 
-  // Row 1 ---> none are working : still needs work!
+  // Row 1 ---> Percent/Squareroot/Power are working : reciprocal still needs work!
 document.getElementById('percent').addEventListener('click', function(){
-
-  data.firstTerm = document.getElementById('display').innerHTML;
+	var val = document.getElementById('display').innerHTML;
+	if (data.firstTerm) {
+		if (val === ''){
+			var x = data.firstTerm;
+			var percentOfX = parseFloat((x /100).toFixed(9));
+			var xPercentOfX = parseFloat((x * percentOfX).toFixed(9)).toString();
+			document.getElementById('display').innerHTML = xPercentOfX;
+		} else {
+			var y = document.getElementById('display').innerHTML;
+			var percentOfY = parseFloat((y /100).toFixed(9));
+			var YPercentOfFirstTerm = parseFloat((data.firstTerm * percentOfY).toFixed(9)).toString();
+			document.getElementById('display').innerHTML = YPercentOfFirstTerm;
+		}
+	}
 });
 document.getElementById('squareroot').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	var val = document.getElementById('display').innerHTML;
+	if (data.firstTerm) {
+		if (val === ''){
+			var x = data.firstTerm;
+			var rootOfX = parseFloat(Math.sqrt(x).toFixed(9)).toString();
+			if (x < 0) {
+				document.getElementById('display').innerHTML = 'Error!';
+			} else {
+				document.getElementById('display').innerHTML = rootOfX;
+			}
+		} else {
+			var y = document.getElementById('display').innerHTML;
+			var rootOfY = parseFloat(Math.sqrt(y).toFixed(9)).toString();
+			if (y < 0) {
+				document.getElementById('display').innerHTML = 'Error!';
+			} else {
+				document.getElementById('display').innerHTML = rootOfY;
+			}
+		}
+	} else {
+		var z = document.getElementById('display').innerHTML;
+		var rootOfZ = parseFloat(Math.sqrt(z).toFixed(9)).toString();
+		if (z < 0) {
+			document.getElementById('display').innerHTML = 'Error!';
+		} else {
+			data.currentOperator = '=';
+			document.getElementById('display').innerHTML = rootOfZ;
+		}
+	}
 });
 document.getElementById('power').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	var val = document.getElementById('display').innerHTML;
+	if (val === ''){
+		var x = data.firstTerm;
+		var xSquared = parseFloat((x ** 2).toFixed(9)).toString();
+		document.getElementById('display').innerHTML = xSquared;
+	} else {
+		var y = document.getElementById('display').innerHTML;
+		var ySquared = parseFloat((y ** 2).toFixed(9)).toString();
+		document.getElementById('display').innerHTML = ySquared;
+	}
 });
 document.getElementById('reciprocal').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	var val = document.getElementById('display').innerHTML;
+	if (data.firstTerm) {
+		if (val === ''){
+			var x = data.firstTerm;
+			var percentOfX = parseFloat((x /100).toFixed(9));
+			var xPercentOfX = parseFloat((x * percentOfX).toFixed(9)).toString();
+			document.getElementById('display').innerHTML = xPercentOfX;
+		} else {
+			var y = document.getElementById('display').innerHTML;
+			var percentOfY = parseFloat((y /100).toFixed(9));
+			var YPercentOfFirstTerm = parseFloat((data.firstTerm * percentOfY).toFixed(9)).toString();
+			document.getElementById('display').innerHTML = YPercentOfFirstTerm;
+		}
+	}
 });
 
   // Row 2 ---> Buttons Working!
@@ -148,6 +213,7 @@ document.getElementById('clear-all').addEventListener('click', function(){
 	clearMemory();
 	console.log(memory);
 	clearDisplay();
+	clearSecondaryDisplay();
 });
 document.getElementById('delete-last').addEventListener('click', function(){
   var entry = document.getElementById('display').innerHTML;
@@ -292,7 +358,20 @@ document.getElementById('add').addEventListener('click', function(){
 
   // Row 6 ---> Most Buttons Working! : Plus Minus needs work!
 document.getElementById('plus-minus').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	var val = document.getElementById('display').innerHTML;
+	if (data.firstTerm) {
+		if (val === ''){
+			var x = data.firstTerm;
+			var percentOfX = parseFloat((x /100).toFixed(9));
+			var xPercentOfX = parseFloat((x * percentOfX).toFixed(9)).toString();
+			document.getElementById('display').innerHTML = xPercentOfX;
+		} else {
+			var y = document.getElementById('display').innerHTML;
+			var percentOfY = parseFloat((y /100).toFixed(9));
+			var YPercentOfFirstTerm = parseFloat((data.firstTerm * percentOfY).toFixed(9)).toString();
+			document.getElementById('display').innerHTML = YPercentOfFirstTerm;
+		}
+	}
 });
 document.getElementById('btn-0').addEventListener('click', function(){
 	if (data.currentOperator === '=') {
@@ -316,6 +395,10 @@ document.getElementById('evaluate').addEventListener('click', function(){
 	data.history.push(`${data.firstTerm} ${data.currentOperator} `);
 	var e = parseFloat(eval(data.equation).toFixed(9)).toString();
 	clearDisplay();
+	if (e.length > 11) {
+		e = e.substring(0,11)
+	}
 	displayValue(e);
+	clearSecondaryDisplay();
 	data.equation = '';
 });
