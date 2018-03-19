@@ -61,14 +61,29 @@ nav h1 {
 }
 
 /* Display */
+.display {
+  width: 308px;
+  padding-right: 0.75rem;
+}
+
 #display {
   justify-content: flex-end;
   align-items: center;
-  height: 88px;
+  height: 66px;
   width: 100%;
   text-align: right;
   font-size: 3rem;
-  padding-right: 0.75rem;
+
+}
+
+#secondary-display {
+  justify-content: flex-end;
+  align-items: center;
+  height: 22px;
+  width: 100%;
+  text-align: right;
+  font-size: 1rem;
+  color: rgba(0,0,0,0.75);
 }
 
 /* Keyboard */

@@ -5,7 +5,7 @@ var data = {
 	equation: '',
 	firstTerm: 0,
 	secondTerm: 0,
-	operator: '',
+	currentOperator: '',
 	decimalAdded: false
 };
   // ['memory'(object)]
@@ -21,10 +21,36 @@ var memory = {
   // General
 var clearDisplay = function() {
 	document.getElementById('display').innerHTML = '';
+	document.getElementById('secondary-display').innerHTML = '';
+}
+
+var clearEquation = function() {
+	data.equation = '';
+}
+
+var clearMemory = function() {
+	memory.history = [];
+	memory.firstTerm = 0;
+	memory.secondTerm = 0;
+	toggleMemory(true);
+}
+
+var clearData = function() {
+	data.history = [];
+	data.equation = [];
+	data.firstTerm = 0;
+	data.secondTerm = 0;
+	data.currentOperator = '';
+	data.decimalAdded= false;
 }
 
 var displayValue = function(val) {
 	document.getElementById('display').innerHTML += val;
+};
+
+var displayValueSecondary = function(val) {
+	document.getElementById('secondary-display').innerHTML = '';
+	document.getElementById('secondary-display').innerHTML += val;
 };
 
   // Memory Specific
@@ -32,6 +58,8 @@ var memoryHistory = function(x, operator, y, e) {
 	var equationString = `${x} ${operator} ${y} = ${e}`;
 	memory.history.push(equationString);
 }
+
+var dataHistory = function() {};
 
 var toggleMemory = function(boolean) {
 	memory.notInUse = boolean;
@@ -49,23 +77,27 @@ var toggleMemory = function(boolean) {
 // EVENT LISTENERS
   // Memory ---> Is Working!! : Memory-History still needs work!
 document.getElementById('memory-clear').addEventListener('click', function(){
-	memory.history = [];
-	memory.firstTerm = 0;
-	memory.secondTerm = 0
-	toggleMemory(true);
+  clearMemory();
 	clearDisplay();
+	console.log(memory);
 });
 document.getElementById('memory-recall').addEventListener('click', function(){
   document.getElementById('display').innerHTML = memory.firstTerm;
 });
 document.getElementById('memory-add').addEventListener('click', function(){
-  memory.secondTerm = document.getElementById('display').innerHTML;
-	var x = parseInt(memory.firstTerm);
-	var y = parseInt(memory.secondTerm);
-	var e = eval("x + y").toString();
-	document.getElementById('display').innerHTML = e;
-	memoryHistory(memory.firstTerm, '+', memory.secondTerm, e);
-	memory.firstTerm = e;
+  if (memory.notInUse) {
+		memory.firstTerm = document.getElementById('display').innerHTML;
+		memory.history.push(memory.firstTerm);
+	} else {
+		memory.secondTerm = document.getElementById('display').innerHTML;
+		var x = parseInt(memory.firstTerm);
+		var y = parseInt(memory.secondTerm);
+		var e = eval("x + y").toString();
+		memoryHistory(memory.firstTerm, '+', memory.secondTerm, e);
+		memory.firstTerm = e;
+	}
+	toggleMemory(false);
+	console.log(memory);
 	clearDisplay();
 });
 document.getElementById('memory-subtract').addEventListener('click', function(){
@@ -73,24 +105,28 @@ document.getElementById('memory-subtract').addEventListener('click', function(){
 	var x = parseInt(memory.firstTerm);
 	var y = parseInt(memory.secondTerm);
 	var e = eval("x - y").toString();
-	document.getElementById('display').innerHTML = e;
 	memoryHistory(memory.firstTerm, '-', memory.secondTerm, e);
 	memory.firstTerm = e;
+	toggleMemory(false);
+	console.log(memory);
 	clearDisplay();
 });
 document.getElementById('memory-store').addEventListener('click', function(){
 	memory.firstTerm = document.getElementById('display').innerHTML;
 	memory.history.push(memory.firstTerm);
   toggleMemory(false);
+	console.log(memory);
 	clearDisplay();
 });
 document.getElementById('memory-history').addEventListener('click', function(){
+  console.log(memory);
 	console.log("Function under construction! Thank you for your Patience :-)!");
 });
 
-  // Row 1
+  // Row 1 ---> none are working : still needs work!
 document.getElementById('percent').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+
+  data.firstTerm = document.getElementById('display').innerHTML;
 });
 document.getElementById('squareroot').addEventListener('click', function(){
   displayValue(this.innerHTML);
@@ -102,21 +138,33 @@ document.getElementById('reciprocal').addEventListener('click', function(){
   displayValue(this.innerHTML);
 });
 
-  // Row 2
+  // Row 2 ---> Clear Functions Working! : Operators Still need work!
 document.getElementById('clear-entry').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+  clearDisplay();
 });
 document.getElementById('clear-all').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+  clearData();
+	console.log(data);
+	clearMemory();
+	console.log(memory);
+	clearDisplay();
 });
 document.getElementById('delete-last').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+  var entry = document.getElementById('display').innerHTML;
+	clearDisplay();
+	displayValue(entry.slice(0, -1));
 });
 document.getElementById('divide').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+  data.firstTerm = document.getElementById('display').innerHTML;
+	data.currentOperator = '/';
+	data.equation += `${data.firstTerm} ${data.currentOperator} `;
+	data.history.push(`${data.firstTerm} ${data.currentOperator} `);
+	clearDisplay();
+	console.log(data);
+	displayValueSecondary(data.equation);
 });
 
-// Row 3
+  // Row 3 ---> Number Buttons Working! : Operators Still need work!
 document.getElementById('btn-7').addEventListener('click', function(){
   displayValue(this.innerHTML);
 });
@@ -127,10 +175,16 @@ document.getElementById('btn-9').addEventListener('click', function(){
   displayValue(this.innerHTML);
 });
 document.getElementById('multiply').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	data.firstTerm = document.getElementById('display').innerHTML;
+	data.currentOperator = '*';
+	data.equation += `${data.firstTerm} ${data.currentOperator} `;
+	data.history.push(`${data.firstTerm} ${data.currentOperator} `);
+	clearDisplay();
+	console.log(data);
+	displayValueSecondary(data.equation);
 });
 
-// Row 4
+  // Row 4 ---> Number Buttons Working! : Operators Still need work!
 document.getElementById('btn-4').addEventListener('click', function(){
   displayValue(this.innerHTML);
 });
@@ -141,10 +195,16 @@ document.getElementById('btn-6').addEventListener('click', function(){
   displayValue(this.innerHTML);
 });
 document.getElementById('minus').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	data.firstTerm = document.getElementById('display').innerHTML;
+	data.currentOperator = '-';
+	data.equation += `${data.firstTerm} ${data.currentOperator} `;
+	data.history.push(`${data.firstTerm} ${data.currentOperator} `);
+	clearDisplay();
+	console.log(data);
+	displayValueSecondary(data.equation);
 });
 
-// Row 5
+  // Row 5 ---> Number Buttons Working! : Operators Still need work!
 document.getElementById('btn-1').addEventListener('click', function(){
   displayValue(this.innerHTML);
 });
@@ -155,10 +215,16 @@ document.getElementById('btn-3').addEventListener('click', function(){
   displayValue(this.innerHTML);
 });
 document.getElementById('add').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	data.firstTerm = document.getElementById('display').innerHTML;
+	data.currentOperator = '+';
+	data.equation += `${data.firstTerm} ${data.currentOperator} `;
+	data.history.push(`${data.firstTerm} ${data.currentOperator} `);
+	clearDisplay();
+	console.log(data);
+	displayValueSecondary(data.equation);
 });
 
-// Row 6
+  // Row 6
 document.getElementById('plus-minus').addEventListener('click', function(){
   displayValue(this.innerHTML);
 });
@@ -169,5 +235,12 @@ document.getElementById('decimal').addEventListener('click', function(){
   displayValue(this.innerHTML);
 });
 document.getElementById('evaluate').addEventListener('click', function(){
-  displayValue(this.innerHTML);
+	data.firstTerm = document.getElementById('display').innerHTML;
+	data.currentOperator = '=';
+	data.equation += `${data.firstTerm} `;
+	data.history.push(`${data.firstTerm} ${data.currentOperator} `);
+	var e = eval(data.equation)
+	clearDisplay();
+	displayValue(e);
+	data.equation = '';
 });
