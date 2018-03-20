@@ -1,4 +1,3 @@
-// Get all the keys from document
 var data = {
   keys: document.getElementById('keyboard').getElementsByTagName('button'),
 	history: [],
@@ -148,24 +147,97 @@ var memory = {
   },
 }
 
+for (var i = 0; i < data.keys.length; i++ ){
+  data.keys[i].onclick = function(){
+    var btnValue = this.innerHTML;
+    var numbers = ['0','1','2','3','4','5','6','7','8','9']
 
+    if (btnValue === '&#9776;' ) {
+      console.log('Under Construction!');
 
+    } else if (btnValue === 'Hv') {
+      console.log(data.history);
 
+    } else if (numbers.includes(btnVal)) {
+      data.numberButton(this.innerHTML);
 
+    } else if (btnValue === 'MC') {
+      memory.clearMemory();
+    	data.clearDisplay();
+    	console.log(memory);
 
+    } else if (btnValue === 'MR') {
+      document.getElementById('display').innerHTML = memory.firstTerm;
 
+    } else if (btnValue === 'M+') {
+      memory.memoryMath('+');
+    	data.clearDisplay();
+    	console.log(memory);
 
+    } else if (btnValue === 'M-') {
+      memory.memoryMath('-');
+    	data.clearDisplay();
+    	console.log(memory);
 
+    } else if (btnValue === 'MS') {
+      memory.memoryHistory();
+      memory.toggleMemory(false);
+    	data.clearDisplay();
+    	console.log(memory);
 
+    } else if (btnValue === 'Mv') {
+      console.log(memory.history);
 
-console.log(data);
-// var keys = document.getElementById('keyboard').getElementsByTagName('button');
-// var operators = ['+', '-', 'x', '÷'];
-// var decimalAdded = false;
-//
-// for(var i = 0; i < keys.length; i++) {
-// 	keys[i].onclick = function(e) {
-//
-// 		var input = document.getElementById('display');
-// 		var inputVal = input.innerHTML;
-// 		var btnVal = this.innerHTML;
+    } else if (btnValue === '%') {
+      data.higherOperation('/100');
+
+    } else if (btnValue === '&radic;') {
+      data.higherOperation('Math.sqrt');
+
+    } else if (btnValue === 'x&sup2;') {
+      data.higherOperation('**2');
+
+    } else if (btnValue === '1/x') {
+      data.higherOperation('1/');
+
+    } else if (btnValue === 'CE') {
+      data.clearDisplay();
+
+    } else if (btnValue === 'C') {
+      data.clearData();
+    	console.log(data);
+    	memory.clearMemory();
+    	console.log(memory);
+    	data.clearDisplay();
+    	data.clearSecondaryDisplay();
+
+    } else if (btnValue === '&#9746;') {
+      var input = document.getElementById('display').innerHTML;
+    	data.clearDisplay();
+    	data.displayValue(input.slice(0, -1));
+
+    } else if (btnValue === '&divide;') {
+      data.basicOperation('/');
+
+    } else if (btnValue === '&times;') {
+      data.basicOperation('*');
+
+    } else if (btnValue === '&minus;') {
+      data.basicOperation('-');
+
+    } else if (btnValue === '&plus;') {
+      data.basicOperation('+');
+
+    } else if (btnValue === '=') {
+      data.basicOperation('=');
+
+    } else if (btnValue === '.') {
+      var val = document.getElementById('display').innerHTML;
+    	if (!val.includes('.')) {
+    		data.displayValue(this.innerHTML);
+    	};
+
+    } else if (btnValue === '&plusmn;') {
+      data.higherOperation('0-');
+  };
+}
