@@ -1,9 +1,9 @@
 var data = {
+  numbers: ['0','1','2','3','4','5','6','7','8','9'],
   keys: document.getElementById('keyboard').getElementsByTagName('button'),
 	history: [],
 	equation: '',
 	firstTerm: 0,
-	secondTerm: 0,
 	currentOperator: '',
   numberButton: function(val){
     var input = val;
@@ -63,7 +63,6 @@ var data = {
   		data.history.push(`${data.firstTerm} ${data.currentOperator} `);
   		data.displayValueSecondary(data.equation);
   		data.clearDisplay();
-  		console.log(data);
   	};
   	if (operator === '=') {
   		var e = parseFloat(eval(data.equation).toFixed(9)).toString();
@@ -89,7 +88,6 @@ var data = {
   clearData: function(){
   	data.equation = '';
   	data.firstTerm = 0;
-  	data.secondTerm = 0;
   	data.currentOperator = '';
   },
   clearEquation: function(){
@@ -147,29 +145,26 @@ var memory = {
   },
 }
 
+document.getElementById('menu').addEventListener('click', function(){
+	console.log('Under Construction!');
+});
+
+document.getElementById('history').addEventListener('click', function(){
+	console.log(data.history);
+});
+
 for (var i = 0; i < data.keys.length; i++ ){
   data.keys[i].onclick = function(e){
     var btnValue = this.innerHTML;
-    var btnText = this.innerText;
-    console.log(btnText);
-    var numbers = ['0','1','2','3','4','5','6','7','8','9'];
 
-    // doesn't work - Not a keyboard button
-    if (btnValue === '&#9776;' ) {
-      console.log('Under Construction!');
-    // doesn't work - Not a keyboard button
-    } else if (btnValue === 'Hv') {
-      console.log(data.history);
-    }
-
-    if (numbers.includes(btnValue)) {
+    if (data.numbers.includes(btnValue)) {
       data.numberButton(this.innerHTML);
     }
+
     switch (btnValue) {
       case 'MC':
         memory.clearMemory();
         data.clearDisplay();
-        console.log(memory);
         break;
       case 'MR':
         document.getElementById('display').innerHTML = memory.firstTerm;
@@ -177,18 +172,15 @@ for (var i = 0; i < data.keys.length; i++ ){
       case 'M+':
         memory.memoryMath('+');
         data.clearDisplay();
-        console.log(memory);
         break;
       case 'M-':
         memory.memoryMath('-');
         data.clearDisplay();
-        console.log(memory);
         break;
       case 'MS':
         memory.memoryHistory();
         memory.toggleMemory(false);
         data.clearDisplay();
-        console.log(memory);
         break;
       case 'Mv':
         console.log(memory.history);
@@ -210,9 +202,7 @@ for (var i = 0; i < data.keys.length; i++ ){
         break;
       case 'C':
         data.clearData();
-        console.log(data);
         memory.clearMemory();
-        console.log(memory);
         data.clearDisplay();
         data.clearSecondaryDisplay();
         break;
