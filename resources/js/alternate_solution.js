@@ -8,11 +8,11 @@ var data = {
   numberButton: function(val){
     var input = val;
   	if (data.currentOperator === '=') {
-  		clearDisplay();
+  		data.clearDisplay();
   		data.currentOperator = '';
-  		displayValue(input);
+  		data.displayValue(input);
   	} else {
-  		displayValue(input);
+  		data.displayValue(input);
   	}
   },
   higherOperation: function(operator) {
@@ -61,8 +61,8 @@ var data = {
   			data.equation += `${data.firstTerm} `;
   		};
   		data.history.push(`${data.firstTerm} ${data.currentOperator} `);
-  		displayValueSecondary(data.equation);
-  		clearDisplay();
+  		data.displayValueSecondary(data.equation);
+  		data.clearDisplay();
   		console.log(data);
   	};
   	if (operator === '=') {
@@ -70,10 +70,10 @@ var data = {
   		if (e.length > 11) {
   			e = e.substring(0,11);
   		};
-  		displayValue(e);
+  		data.displayValue(e);
   		data.history.push(`${data.equation}= ${e}`);
   		data.equation = '';
-  		clearSecondaryDisplay();
+  		data.clearSecondaryDisplay();
   	};
   },
   displayValue: function(val){
@@ -135,109 +135,117 @@ var memory = {
   	var x = parseInt(memory.firstTerm);
   	var y = parseInt(memory.secondTerm);
   	var e = parseFloat(eval(`x ${operator} y`).toFixed(9)).toString();
-  	memoryHistory(memory.firstTerm, '+', memory.secondTerm, e);
+  	memory.memoryHistory(memory.firstTerm, '+', memory.secondTerm, e);
   	memory.firstTerm = e;
-  	toggleMemory(false);
+  	memory.toggleMemory(false);
   },
   clearMemory: function(){
     memory.history = [];
   	memory.firstTerm = 0;
   	memory.secondTerm = 0;
-  	toggleMemory(true);
+  	memory.toggleMemory(true);
   },
 }
 
 for (var i = 0; i < data.keys.length; i++ ){
-  data.keys[i].onclick = function(){
+  data.keys[i].onclick = function(e){
     var btnValue = this.innerHTML;
-    var numbers = ['0','1','2','3','4','5','6','7','8','9']
+    var btnText = this.innerText;
+    console.log(btnText);
+    var numbers = ['0','1','2','3','4','5','6','7','8','9'];
 
+    // doesn't work - Not a keyboard button
     if (btnValue === '&#9776;' ) {
       console.log('Under Construction!');
-
+    // doesn't work - Not a keyboard button
     } else if (btnValue === 'Hv') {
       console.log(data.history);
+    }
 
-    } else if (numbers.includes(btnVal)) {
+    if (numbers.includes(btnValue)) {
       data.numberButton(this.innerHTML);
-
-    } else if (btnValue === 'MC') {
-      memory.clearMemory();
-    	data.clearDisplay();
-    	console.log(memory);
-
-    } else if (btnValue === 'MR') {
-      document.getElementById('display').innerHTML = memory.firstTerm;
-
-    } else if (btnValue === 'M+') {
-      memory.memoryMath('+');
-    	data.clearDisplay();
-    	console.log(memory);
-
-    } else if (btnValue === 'M-') {
-      memory.memoryMath('-');
-    	data.clearDisplay();
-    	console.log(memory);
-
-    } else if (btnValue === 'MS') {
-      memory.memoryHistory();
-      memory.toggleMemory(false);
-    	data.clearDisplay();
-    	console.log(memory);
-
-    } else if (btnValue === 'Mv') {
-      console.log(memory.history);
-
-    } else if (btnValue === '%') {
-      data.higherOperation('/100');
-
-    } else if (btnValue === '&radic;') {
-      data.higherOperation('Math.sqrt');
-
-    } else if (btnValue === 'x&sup2;') {
-      data.higherOperation('**2');
-
-    } else if (btnValue === '1/x') {
-      data.higherOperation('1/');
-
-    } else if (btnValue === 'CE') {
-      data.clearDisplay();
-
-    } else if (btnValue === 'C') {
-      data.clearData();
-    	console.log(data);
-    	memory.clearMemory();
-    	console.log(memory);
-    	data.clearDisplay();
-    	data.clearSecondaryDisplay();
-
-    } else if (btnValue === '&#9746;') {
-      var input = document.getElementById('display').innerHTML;
-    	data.clearDisplay();
-    	data.displayValue(input.slice(0, -1));
-
-    } else if (btnValue === '&divide;') {
-      data.basicOperation('/');
-
-    } else if (btnValue === '&times;') {
-      data.basicOperation('*');
-
-    } else if (btnValue === '&minus;') {
-      data.basicOperation('-');
-
-    } else if (btnValue === '&plus;') {
-      data.basicOperation('+');
-
-    } else if (btnValue === '=') {
-      data.basicOperation('=');
-
-    } else if (btnValue === '.') {
-      var val = document.getElementById('display').innerHTML;
-    	if (!val.includes('.')) {
-    		data.displayValue(this.innerHTML);
-    	};
-
-    } else if (btnValue === '&plusmn;') {
-      data.higherOperation('0-');
+    }
+    switch (btnValue) {
+      case 'MC':
+        memory.clearMemory();
+        data.clearDisplay();
+        console.log(memory);
+        break;
+      case 'MR':
+        document.getElementById('display').innerHTML = memory.firstTerm;
+        break;
+      case 'M+':
+        memory.memoryMath('+');
+        data.clearDisplay();
+        console.log(memory);
+        break;
+      case 'M-':
+        memory.memoryMath('-');
+        data.clearDisplay();
+        console.log(memory);
+        break;
+      case 'MS':
+        memory.memoryHistory();
+        memory.toggleMemory(false);
+        data.clearDisplay();
+        console.log(memory);
+        break;
+      case 'Mv':
+        console.log(memory.history);
+        break;
+      case '%':
+        data.higherOperation('/100');
+        break;
+      case '-/':
+        data.higherOperation('Math.sqrt');
+        break;
+      case 'x^2':
+        data.higherOperation('**2');
+        break;
+      case '1/x':
+        data.higherOperation('1/');
+        break;
+      case 'CE':
+        data.clearDisplay();
+        break;
+      case 'C':
+        data.clearData();
+        console.log(data);
+        memory.clearMemory();
+        console.log(memory);
+        data.clearDisplay();
+        data.clearSecondaryDisplay();
+        break;
+      case 'BS':
+        var input = document.getElementById('display').innerHTML;
+        data.clearDisplay();
+        data.displayValue(input.slice(0, -1));
+        break;
+      case '/':
+        data.basicOperation('/');
+        break;
+      case '*':
+        data.basicOperation('*');
+        break;
+      case '-':
+        data.basicOperation('-');
+        break;
+      case '+':
+        data.basicOperation('+');
+        break;
+      case '=':
+        data.basicOperation('=');
+        break;
+      case '.':
+        var val = document.getElementById('display').innerHTML;
+        if (!val.includes('.')) {
+          data.displayValue(this.innerHTML);
+        };
+        break;
+      case '+/-':
+        data.higherOperation('0-');
+        break;
+    }
+    e.preventDefault();
   };
 }
