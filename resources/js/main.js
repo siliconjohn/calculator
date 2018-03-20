@@ -31,7 +31,6 @@ var clearEquation = function() {
 }
 
 var clearData = function() {
-	data.history = [];
 	data.equation = '';
 	data.firstTerm = 0;
 	data.secondTerm = 0;
@@ -39,7 +38,10 @@ var clearData = function() {
 }
 
 var displayValue = function(val) {
-	document.getElementById('display').innerHTML += val;
+	var input = document.getElementById('display').innerHTML
+	if (input.length < 11) {
+		document.getElementById('display').innerHTML += val;
+	}
 };
 
 var displayValueSecondary = function(val) {
@@ -77,8 +79,16 @@ var toggleMemory = function(boolean) {
 	};
 };
 
-// EVENT LISTENERS (27/32) Buttons Working!!
-  // Memory ---> Buttons Working! : Memory-History still needs work!
+// EVENT LISTENERS (29/32) Buttons Working!!
+  //Menu/History Buttons Working!! (somewhat?!?)
+document.getElementById('menu').addEventListener('click', function(){
+		console.log('Under Construction!');
+});
+document.getElementById('history').addEventListener('click', function(){
+	console.log(data.history);
+});
+
+  // Memory ---> Buttons Working!
 document.getElementById('memory-clear').addEventListener('click', function(){
   clearMemory();
 	clearDisplay();
@@ -122,11 +132,10 @@ document.getElementById('memory-store').addEventListener('click', function(){
 	clearDisplay();
 });
 document.getElementById('memory-history').addEventListener('click', function(){
-  console.log(memory);
-	console.log("Function under construction! Thank you for your Patience :-)!");
+  console.log(memory.history);
 });
 
-  // Row 1 ---> Percent/Squareroot/Power are working : reciprocal still needs work!
+  // Row 1 ---> Buttons Working!
 document.getElementById('percent').addEventListener('click', function(){
 	var val = document.getElementById('display').innerHTML;
 	if (data.firstTerm) {
@@ -188,18 +197,14 @@ document.getElementById('power').addEventListener('click', function(){
 });
 document.getElementById('reciprocal').addEventListener('click', function(){
 	var val = document.getElementById('display').innerHTML;
-	if (data.firstTerm) {
-		if (val === ''){
-			var x = data.firstTerm;
-			var percentOfX = parseFloat((x /100).toFixed(9));
-			var xPercentOfX = parseFloat((x * percentOfX).toFixed(9)).toString();
-			document.getElementById('display').innerHTML = xPercentOfX;
-		} else {
-			var y = document.getElementById('display').innerHTML;
-			var percentOfY = parseFloat((y /100).toFixed(9));
-			var YPercentOfFirstTerm = parseFloat((data.firstTerm * percentOfY).toFixed(9)).toString();
-			document.getElementById('display').innerHTML = YPercentOfFirstTerm;
-		}
+	if (val === ''){
+		var x = data.firstTerm;
+		var reciprocalOfX = parseFloat((1 / x).toFixed(9)).toString();
+		document.getElementById('display').innerHTML = reciprocalOfX;
+	} else {
+		var y = document.getElementById('display').innerHTML;
+		var reciprocalOfY = parseFloat((1 / y).toFixed(9)).toString();
+		document.getElementById('display').innerHTML = reciprocalOfY;
 	}
 });
 
@@ -356,21 +361,17 @@ document.getElementById('add').addEventListener('click', function(){
 	};
 });
 
-  // Row 6 ---> Most Buttons Working! : Plus Minus needs work!
+  // Row 6 ---> Buttons Working!
 document.getElementById('plus-minus').addEventListener('click', function(){
 	var val = document.getElementById('display').innerHTML;
-	if (data.firstTerm) {
-		if (val === ''){
-			var x = data.firstTerm;
-			var percentOfX = parseFloat((x /100).toFixed(9));
-			var xPercentOfX = parseFloat((x * percentOfX).toFixed(9)).toString();
-			document.getElementById('display').innerHTML = xPercentOfX;
-		} else {
-			var y = document.getElementById('display').innerHTML;
-			var percentOfY = parseFloat((y /100).toFixed(9));
-			var YPercentOfFirstTerm = parseFloat((data.firstTerm * percentOfY).toFixed(9)).toString();
-			document.getElementById('display').innerHTML = YPercentOfFirstTerm;
-		}
+	if (val === ''){
+		var x = data.firstTerm;
+		var negateX = parseFloat((0 - x).toFixed(9)).toString();
+		document.getElementById('display').innerHTML = negateX;
+	} else {
+		var y = document.getElementById('display').innerHTML;
+		var negateY = parseFloat((0 - y).toFixed(9)).toString();
+		document.getElementById('display').innerHTML = negateY;
 	}
 });
 document.getElementById('btn-0').addEventListener('click', function(){
@@ -391,14 +392,12 @@ document.getElementById('decimal').addEventListener('click', function(){
 document.getElementById('evaluate').addEventListener('click', function(){
 	data.firstTerm = document.getElementById('display').innerHTML;
 	data.currentOperator = '=';
-	data.equation += `${data.firstTerm} `;
+	data.equation += `${data.firstTerm}`;
 	data.history.push(`${data.firstTerm} ${data.currentOperator} `);
 	var e = parseFloat(eval(data.equation).toFixed(9)).toString();
 	clearDisplay();
-	if (e.length > 11) {
-		e = e.substring(0,11)
-	}
 	displayValue(e);
 	clearSecondaryDisplay();
+	data.history.push(`${data.equation} = ${e}`);
 	data.equation = '';
 });
