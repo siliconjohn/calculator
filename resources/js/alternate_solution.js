@@ -163,10 +163,8 @@ document.getElementById('history').addEventListener('click', () => {
   console.log(data);
 })
 
-//  Main For Loop : Iterates Through, and adds ['Click'(Event Listeners)] to,
-//  all 'Keyboard' buttons;
-for (let i = 0; i < data.keys.length; i++ ){
-  data.keys[i].onclick = function(e) {
+
+function numberClick(e) {
     // As a Button is Pressed its inner value is captured.
     const btnValue = this.innerHTML;
     // Check if btnValue is a number, if it is passes it as a value to
@@ -255,4 +253,9 @@ for (let i = 0; i < data.keys.length; i++ ){
     //Prevents any 'Event' default actions
     e.preventDefault();
   };
+
+//  Main For Loop : Iterates Through, and adds ['Click'(Event Listeners)] to,
+//  all 'Keyboard' buttons;
+for (let i = 0; i < data.keys.length; i++ ){
+  data.keys[i].onclick = numberClick(e)  
 }
