@@ -1,57 +1,64 @@
-var data = {
+// ['Data'(Object)] for Main Calculator Variables/Functions
+const data = {
   numbers: ['0','1','2','3','4','5','6','7','8','9'],
   keys: document.getElementById('keyboard').getElementsByTagName('button'),
 	history: [],
 	equation: '',
 	firstTerm: 0,
-	currentOperator: '',
-  numberButton: function(val){
-    var input = val;
+	currentOperator:'',
+  numberButton: val => {
   	if (data.currentOperator === '=') {
   		data.clearDisplay();
   		data.currentOperator = '';
-  		data.displayValue(input);
+  		data.displayValue(val);
   	} else {
-  		data.displayValue(input);
+  		data.displayValue(val);
   	}
   },
-  higherOperation: function(operator) {
-    var val = document.getElementById('display').innerHTML;
-  	var x = 0;
-  	var xOperated = '';
+  higherOperation: operator => {
+    const val = document.getElementById('display').innerHTML;
+  	let x;
+    let y;
+  	let xOperated;
   	if (val === ''){
   		x = data.firstTerm;
   	} else {
   		x = document.getElementById('display').innerHTML;
-  		var y = data.firstTerm;
-  	};
-    if (operator === '/100'){
-  	  var percentOfX = parseFloat((x /100).toFixed(9));
-  	  if (!y) {
-  		  xOperated = parseFloat((x * percentOfX).toFixed(9)).toString();
-  	  } else {
-  		  xOperated = parseFloat((y * percentOfX).toFixed(9)).toString();
-  	  }
-  	} else if (operator === 'Math.sqrt') {
-  		if (x < 0){
-  		  document.getElementById('display').innerHTML = 'Error!';
-  		}	else {
-  		  xOperated = parseFloat(eval(`${operator}(${x})`).toFixed(9)).toString();
-  		}
-  	} else if (operator === '**2'){
-  		xOperated = parseFloat(eval(`${x}${operator}`).toFixed(9)).toString();
-  	} else if (operator === '1/') {
-  		xOperated = parseFloat(eval(`${operator}${x}`).toFixed(9)).toString();
-  	} else if (operator === '0-') {
-  		xOperated = parseFloat((0 - x).toFixed(9)).toString();
+  		y = data.firstTerm;
+  	}
+    switch (operator) {
+      case '/100':
+  	    const percentOfX = parseFloat((x /100).toFixed(9));
+  	    if (!y) {
+  		    xOperated = parseFloat((x * percentOfX).toFixed(9)).toString();
+  	    } else {
+  		    xOperated = parseFloat((y * percentOfX).toFixed(9)).toString();
+  	    }
+        break;
+  	  case 'Math.sqrt':
+  		  if (x < 0){
+  		    document.getElementById('display').innerHTML = 'Error!';
+  		  }	else {
+  		    xOperated = parseFloat(eval(`${operator}(${x})`).toFixed(9)).toString();
+  		  }
+        break;
+  	  case '**2':
+  		  xOperated = parseFloat(eval(`${x}${operator}`).toFixed(9)).toString();
+        break;
+  	  case '1/':
+  		  xOperated = parseFloat(eval(`${operator}${x}`).toFixed(9)).toString();
+        break;
+  	  case '0-':
+  		  xOperated = parseFloat((0 - x).toFixed(9)).toString();
+        break;
   	}
   	if (xOperated.length > 11) {
   		xOperated = xOperated.substring(0,11);
-  	};
+  	}
     document.getElementById('display').innerHTML = xOperated;
   },
-  basicOperation: function(operator) {
-    var val = document.getElementById('display').innerHTML;
+  basicOperation: operator => {
+    const val = document.getElementById('display').innerHTML;
   	if (val !== ''){
   		data.firstTerm = document.getElementById('display').innerHTML;
   		data.currentOperator = operator;
@@ -59,64 +66,65 @@ var data = {
   			data.equation += `${data.firstTerm} ${data.currentOperator} `;
   		} else {
   			data.equation += `${data.firstTerm} `;
-  		};
+  		}
   		data.history.push(`${data.firstTerm} ${data.currentOperator} `);
   		data.displayValueSecondary(data.equation);
   		data.clearDisplay();
-  	};
+  	}
   	if (operator === '=') {
-  		var e = parseFloat(eval(data.equation).toFixed(9)).toString();
+  		let e = parseFloat(eval(data.equation).toFixed(9)).toString();
   		if (e.length > 11) {
   			e = e.substring(0,11);
-  		};
+  		}
   		data.displayValue(e);
   		data.history.push(`${data.equation}= ${e}`);
   		data.equation = '';
   		data.clearSecondaryDisplay();
-  	};
+  	}
   },
-  displayValue: function(val){
-    var input = document.getElementById('display').innerHTML
+  displayValue: val => {
+    const input = document.getElementById('display').innerHTML
   	if (input.length < 11) {
   		document.getElementById('display').innerHTML += val;
   	}
   },
-  displayValueSecondary: function(val){
+  displayValueSecondary: val => {
   	document.getElementById('secondary-display').innerHTML = '';
   	document.getElementById('secondary-display').innerHTML += val;
   },
-  clearData: function(){
+  clearData: () => {
   	data.equation = '';
   	data.firstTerm = 0;
   	data.currentOperator = '';
   },
-  clearEquation: function(){
+  clearEquation: () => {
   	data.equation = '';
   },
-  clearDisplay: function(){
+  clearDisplay: () => {
   	document.getElementById('display').innerHTML = '';
   },
-  clearSecondaryDisplay: function(){
+  clearSecondaryDisplay: () => {
   	document.getElementById('secondary-display').innerHTML = '';
   },
 };
 
-var memory = {
+// ['Memory'(Object)] for Calculator Memory Variables/Functions
+const memory = {
 	history: [],
 	firstTerm: 0,
 	secondTerm: 0,
 	notInUse: true,
 	specialButtons: document.getElementsByClassName('not-in-use'),
-  memoryHistory: function(x, operator, y, e) {
+  memoryHistory: (x, operator, y, e) => {
     if (operator) {
-  		var equationString = `${x} ${operator} ${y} = ${e}`;
+  		const equationString = `${x} ${operator} ${y} = ${e}`;
   		memory.history.push(equationString);
   	} else {
   		memory.firstTerm = document.getElementById('display').innerHTML;
   		memory.history.push(memory.firstTerm);
   	}
   },
-  toggleMemory: function(boolean){
+  toggleMemory: boolean => {
     memory.notInUse = boolean;
   	if (memory.notInUse) {
   		for (let i = 0; i < memory.specialButtons.length; i++){
@@ -128,16 +136,16 @@ var memory = {
   		}
   	}
   },
-  memoryMath: function(operator){
+  memoryMath: operator => {
     memory.secondTerm = document.getElementById('display').innerHTML;
-  	var x = parseInt(memory.firstTerm);
-  	var y = parseInt(memory.secondTerm);
-  	var e = parseFloat(eval(`x ${operator} y`).toFixed(9)).toString();
+  	const x = parseInt(memory.firstTerm);
+  	const y = parseInt(memory.secondTerm);
+  	const e = parseFloat(eval(`x ${operator} y`).toFixed(9)).toString();
   	memory.memoryHistory(memory.firstTerm, '+', memory.secondTerm, e);
   	memory.firstTerm = e;
   	memory.toggleMemory(false);
   },
-  clearMemory: function(){
+  clearMemory: () => {
     memory.history = [];
   	memory.firstTerm = 0;
   	memory.secondTerm = 0;
@@ -145,97 +153,106 @@ var memory = {
   },
 }
 
-document.getElementById('menu').addEventListener('click', function(){
+// Header Bar Buttons : Working
+document.getElementById('menu').addEventListener('click', () => {
 	console.log('Under Construction!');
-});
+})
 
-document.getElementById('history').addEventListener('click', function(){
+document.getElementById('history').addEventListener('click', () => {
 	console.log(data.history);
-});
+  console.log(data);
+})
 
-for (var i = 0; i < data.keys.length; i++ ){
-  data.keys[i].onclick = function(e){
-    var btnValue = this.innerHTML;
-
+//  Main For Loop : Iterates Through, and adds ['Click'(Event Listeners)] to,
+//  all 'Keyboard' buttons;
+for (let i = 0; i < data.keys.length; i++ ){
+  data.keys[i].onclick = function(e) {
+    // As a Button is Pressed its inner value is captured.
+    const btnValue = this.innerHTML;
+    // Check if btnValue is a number, if it is passes it as a value to
+    // ['numberButton'(function)] to be displayed to primary display.
     if (data.numbers.includes(btnValue)) {
       data.numberButton(this.innerHTML);
     }
-
+    // All other Button values are passed through this switch statement
+    // To perform their individual functions
     switch (btnValue) {
-      case 'MC':
+      case 'MC': //Memory-Clear
         memory.clearMemory();
         data.clearDisplay();
         break;
-      case 'MR':
+      case 'MR': //Memory-Recall
         document.getElementById('display').innerHTML = memory.firstTerm;
         break;
-      case 'M+':
+      case 'M+': //Memory-Add
         memory.memoryMath('+');
         data.clearDisplay();
         break;
-      case 'M-':
+      case 'M-': //Memory-Subtract
         memory.memoryMath('-');
         data.clearDisplay();
         break;
-      case 'MS':
+      case 'MS': //Memory-Store
         memory.memoryHistory();
         memory.toggleMemory(false);
         data.clearDisplay();
         break;
-      case 'Mv':
+      case 'Mv': //Memory-History
         console.log(memory.history);
+        console.log(memory);
         break;
-      case '%':
+      case '%':  //Percent
         data.higherOperation('/100');
         break;
-      case '-/':
+      case '-/': //Square-Root
         data.higherOperation('Math.sqrt');
         break;
-      case 'x^2':
+      case 'x^2': //Squared
         data.higherOperation('**2');
         break;
-      case '1/x':
+      case '1/x': //Reciprocal
         data.higherOperation('1/');
         break;
-      case 'CE':
+      case 'CE': //Clear-Entry
         data.clearDisplay();
         break;
-      case 'C':
+      case 'C': //Clear-All
         data.clearData();
         memory.clearMemory();
         data.clearDisplay();
         data.clearSecondaryDisplay();
         break;
-      case 'BS':
-        var input = document.getElementById('display').innerHTML;
+      case 'BS': //Backspace
+        const input = document.getElementById('display').innerHTML;
         data.clearDisplay();
         data.displayValue(input.slice(0, -1));
         break;
-      case '/':
+      case '/': //Divide
         data.basicOperation('/');
         break;
-      case '*':
+      case '*': //Multiply
         data.basicOperation('*');
         break;
-      case '-':
+      case '-': //Subtract
         data.basicOperation('-');
         break;
-      case '+':
+      case '+': //Add
         data.basicOperation('+');
         break;
-      case '=':
+      case '=': //Evaluate
         data.basicOperation('=');
         break;
-      case '.':
-        var val = document.getElementById('display').innerHTML;
-        if (!val.includes('.')) {
+      case '.': //Decimal-Point
+        const value = document.getElementById('display').innerHTML;
+        if (!value.includes('.')) {
           data.displayValue(this.innerHTML);
         };
         break;
-      case '+/-':
+      case '+/-': //Plus-Minus (Negate)
         data.higherOperation('0-');
         break;
     }
+    //Prevents any 'Event' default actions
     e.preventDefault();
   };
 }
